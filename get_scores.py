@@ -100,7 +100,11 @@ def get_game_text(game):
                     "%s:%s (%s %s)" % (game.standing, game.golfer_name, game.score, game.tournament_progress),
                     "%s" % (game.tournament_name)
                     ]
-    
+        elif "Pre-Round" in game.round_status:
+            lines = [
+                    "%s:%s (%s) %s" % (game.standing, game.golfer_name, game.score, game.tournament_progress),
+                    "%s" % (game.tournament_name)
+                    ]
     return lines
 #############################################################
 def main():
