@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #===============================================================================
-from led_sign.client import SignClient
+from baseticker.client import SignClient
 import os
 import time
 import utils
