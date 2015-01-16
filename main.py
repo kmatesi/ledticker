@@ -29,8 +29,8 @@ def send_msg(entry):
 if __name__ == "__main__":
     start_msg()
 
-    #while True:
-    #    scores = get_scores.main()
-    #    for line in scores:
-    #        send_msg(line)
+    while True:
+        scores = get_scores.main()
+        for line in scores:
+            send_msg(line)
 #===============================================================================
