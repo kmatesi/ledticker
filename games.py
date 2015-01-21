@@ -46,11 +46,12 @@ class GolfMatch:
     
     def __init__(self,league,golfer):
         self.league = league
-        self.golfer_name = golfer.find('golfer-one').get('alias')
+        self.golfer_name = golfer.find('golfer-one').get('alias')[3:]
         self.score = golfer.find('golfer-one').get('score')
         self.standing = golfer.find('golfer-one').get('place')
         self.tournament_progress = golfer.find('gamestate').get('display_status1')
         self.display_status2 = golfer.find('gamestate').get('display_status2')
         self.current_hole = golfer.find('gamestate').get('hole')
         self.round_status = golfer.find('gamestate').get('status')
-        self.tee_time = golfer.find('gamestate').find('tee-time')
+        self.tee_time = golfer.find('gamestate').get('tee-time')
+

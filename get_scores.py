@@ -7,6 +7,16 @@ import json
 import elementtree.ElementTree as ET
 import games
 
+startofpga = True
+
+def pgaread():
+    global startofpga
+    return startofpga
+
+def pgaset(state):
+    global startofpga
+    startofpga = state
+
 ### URL TO GRAB SCORES
 ##############################################################
 URL = "http://scores.nbcsports.msnbc.com" + \
@@ -42,6 +52,11 @@ def today(league):
                     for player in golfers:
                         match = games.GolfMatch(league,player)
                         match.tournament_name = game_tree.get('name')
+                        first = pgaread()
+                        if first == True:
+                            head, sep, tail = game_tree.get('name').partition(' in')
+                            entries.append([head[0:16],'Round: ' + game_tree.get('curr-round')])
+                            pgaset(False)
                         entries.append(match)
         except Exception, e:    # catch any exceptions
             print e             # print the error that occurred
@@ -57,7 +72,7 @@ def get_game_text(game):
     if game.__class__.__name__ == "DatedGame":
         if "In-Progress" in game.game_status or "Final" in game.game_status:
             lines = [
-                    "%s:%s %s:%s" % (game.away_teamy, game.away_score, \
+                    "%s:%s %s:%s" % (game.away_team, game.away_score, \
                             game.home_team, game.home_score),
                     ]
             if "In-Progress" in game.game_status:
@@ -94,13 +109,24 @@ def get_game_text(game):
                         "%s v. %s" % (game.away_team, game.home_team),
                         "%s (%s)" % (game.clock_state, game.league)
                         ]
-    else:
-        if "In-Progress" in game.round_status or "Round Over" in game.round_status:
+    elif game.__class__.__name__ == "GolfMatch":
+        if "In-Progress" in game.round_status:
             lines = [
-                    "%s:%s (%s %s)" % (game.standing, game.golfer_name, game.score, game.tournament_progress),
-                    "%s" % (game.tournament_name)
+                    "%s:%s" % (game.standing, game.golfer_name),
+                    "%s %s" % (game.score, game.tournament_progress)
                     ]
-    
+        elif "Round Over" in game.round_status:
+            lines = [
+                    "%s:%s" % (game.standing, game.golfer_name),
+                    "%s %s" % (game.score, game.tee_time)
+                    ]
+        elif "Pre-Round" in game.round_status:
+            lines = [
+                    "%s:%s" % (game.standing, game.golfer_name),
+                    "%s %s" % (game.score, game.tournament_progress)
+                    ]
+    else:
+        lines = game
     return lines
 #############################################################
 def main():
@@ -119,3 +145,5 @@ def main():
 #############################################################
 if __name__ == "__main__":
     main()
+
+
