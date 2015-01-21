@@ -115,6 +115,7 @@ def get_game_text(game):
                     "%s:%s" % (game.standing, game.golfer_name),
                     "%s %s" % (game.score, game.tournament_progress)
                     ]
+<<<<<<< HEAD
         elif "Round Over" in game.round_status:
             lines = [
                     "%s:%s" % (game.standing, game.golfer_name),
@@ -127,6 +128,13 @@ def get_game_text(game):
                     ]
     else:
         lines = game
+=======
+        elif "Pre-Round" in game.round_status:
+            lines = [
+                    "%s:%s (%s) %s" % (game.standing, game.golfer_name, game.score, game.tournament_progress),
+                    "%s" % (game.tournament_name)
+                    ]
+>>>>>>> origin/master
     return lines
 #############################################################
 def main():
@@ -145,5 +153,8 @@ def main():
 #############################################################
 if __name__ == "__main__":
     main()
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master

@@ -53,5 +53,9 @@ class GolfMatch:
         self.display_status2 = golfer.find('gamestate').get('display_status2')
         self.current_hole = golfer.find('gamestate').get('hole')
         self.round_status = golfer.find('gamestate').get('status')
+<<<<<<< HEAD
         self.tee_time = golfer.find('gamestate').get('tee-time')
 
+=======
+        self.tee_time = golfer.find('gamestate').find('tee-time')
+>>>>>>> origin/master

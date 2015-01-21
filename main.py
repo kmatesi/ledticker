@@ -21,7 +21,11 @@ def start_msg():
 def send_msg(entry):
     # New client to write to led sign
     pwd = os.path.dirname(os.path.realpath(__file__))
+<<<<<<< HEAD
     led_sign_path = '/'.join([pwd, 'baseticker']) 
+=======
+    led_sign_path = '/'.join([pwd, 'led_sign']) 
+>>>>>>> origin/master
     glyphs_path = '/'.join([led_sign_path, 'glyphs'])
 
     sign_client = SignClient(glyphs_path, led_sign_path)
@@ -34,10 +38,16 @@ if __name__ == "__main__":
     scores = []
 
     while True:
+<<<<<<< HEAD
         del scores[:]
         scores = get_scores.main()
         scores.append("['Refreshing Scores'],['Please Wait...']")
         for line in scores:
             send_msg(line)
         time.sleep(6)
+=======
+        scores = get_scores.main()
+        for line in scores:
+            send_msg(line)
+>>>>>>> origin/master
 #===============================================================================
